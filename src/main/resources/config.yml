@@ -1,0 +1,13 @@
+general:
+  serverName: 'TemplateServer'
+  messages:
+    badge: '&6[TreeboTackle]&r'
+    error: '&4ERROR:&r'
+
+externalFeatures:
+  bstatsIntegration: true
+  updates:
+    enabled: true
+    method: github
+    spigotID: 0
+    githubKey: 'TreeboMC/TreeboTackle'

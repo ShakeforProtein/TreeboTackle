@@ -1,0 +1,29 @@
+name: TreeboTackle
+version: ${project.version}
+main: me.shakeforprotein.TreeboTackle.TreeboTackle
+api-version: 1.13
+authors: [ShakeforProtein]
+website: http://treebomc.com
+depend: [Vault]
+
+commands:
+  kit:
+    description: ''
+  createkit:
+    permission: treebotackle.admin
+    description: ''
+  deletekit:
+    permission: treebotackle.admin
+    description: ''
+  kitoptions:
+    permission: treebotackle.admin
+    description: ''
+  treebotackle:
+    permission: treebotackle.admin
+    description: ''
+  forcekit:
+    permission: treebotackle.admin
+
+permissions:
+  treebotackle.admin:
+    default: op
