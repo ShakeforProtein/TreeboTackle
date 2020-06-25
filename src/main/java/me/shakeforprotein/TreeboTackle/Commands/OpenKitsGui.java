@@ -83,7 +83,7 @@ public class OpenKitsGui implements CommandExecutor {
                         if (yaml.get("Kit.Available") != null) {
                             if (playerYaml.getString(file.getName().replace(".yml", "")) == null) {
                                 if (yaml.getDouble("Kit.Available") > 0) {
-                                    if(!moreThanXDays(lastClaimed, yaml.getDouble("Kit.Available"))){
+                                    if(!moreThanXDays(lastClaimed, Double.parseDouble(yaml.getString("Kit.Available")))){
                                         addToGui = false;
                                     }
                                 }

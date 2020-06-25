@@ -39,7 +39,7 @@ public class ForceKit implements CommandExecutor {
             File folder = new File(pl.getDataFolder() + File.separator + "Kits");
             File file = new File(folder, args[1] + ".yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(file);
-            File plauerFolder = new File(pl.getDataFolder() + File.separator + "Players");
+            File playerFolder = new File(pl.getDataFolder() + File.separator + "Players");
             File playerFile = new File(folder, p.getUniqueId().toString() + ".yml");
             YamlConfiguration playerYml = YamlConfiguration.loadConfiguration(file);
 
