@@ -83,16 +83,10 @@ public class ViewKitGui implements Listener {
                                     if(yml.getDouble("Kit.Cost") > 0){
                                         econ.withdrawPlayer((Player) e.getWhoClicked(), yml.getDouble("Kit.Cost"));
                                     }
-                                    for (ItemStack item : e.getWhoClicked().getInventory().getContents()) {
-                                        Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if(item != null) {
-                                                    e.getWhoClicked().getWorld().dropItem(e.getWhoClicked().getLocation(), item);
-                                                }
-                                            }
-                                        }, 1L);
-                                    }
+                                    Inventory oldInventory = Bukkit.createInventory(null, 54, "");
+                                    oldInventory.setContents(e.getWhoClicked().getInventory().getContents());
+                                    int tempNum = 0;
+
                                     e.getWhoClicked().getInventory().clear();
                                     if (yml.getItemStack("Kit.Armour.Head") != null) {
                                         newInv.setHelmet(yml.getItemStack("Kit.Armour.Head"));
@@ -120,6 +114,31 @@ public class ViewKitGui implements Listener {
                                     saveYml(playerYml, playerFile);
                                     e.getWhoClicked().closeInventory();
 
+                                    for(ItemStack oldItem : oldInventory.getContents()){
+                                        for(ItemStack newItem : e.getWhoClicked().getInventory().getContents()){
+                                            if(!(oldItem == null)
+                                                    && !oldItem.getType().isAir()
+                                                    && newItem != null
+                                                    && !newItem.getType().isAir()
+                                                    && newItem.getType() == oldItem.getType()
+                                                    && newItem.getItemMeta() == oldItem.getItemMeta()
+                                                    && newItem.getAmount() < newItem.getMaxStackSize()
+                                                    && oldItem.getAmount() > 0){
+                                                int available = newItem.getMaxStackSize() - newItem.getAmount();
+                                                if(oldItem.getAmount() <= available){newItem.setAmount(newItem.getAmount() + oldItem.getAmount());}
+                                                else{oldItem.setAmount(oldItem.getAmount() - available); newItem.setAmount(newItem.getMaxStackSize());}
+                                            }
+                                        }
+                                    }
+                                    for(ItemStack oldItem : oldInventory.getContents()){
+                                        if(oldItem != null) {
+                                            if (e.getWhoClicked().getInventory().firstEmpty() != -1) {
+                                                e.getWhoClicked().getInventory().setItem(e.getWhoClicked().getInventory().firstEmpty(), oldItem);
+                                            } else {
+                                                e.getWhoClicked().getWorld().dropItemNaturally(e.getWhoClicked().getLocation(), oldItem);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
